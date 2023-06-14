@@ -38,14 +38,14 @@ drop if year<1990 | year>2019
 // Only keep relevant variables
 keep country_code poverty_line headcount year
 // This line won't work for the first part of the loop but it will afterwards
-cap append using "Inputdata/DistributionalData_raw.dta"
-qui save  "Inputdata/DistributionalData_raw.dta", replace 
+cap append using "Input data/DistributionalData_raw.dta"
+qui save  "Input data/DistributionalData_raw.dta", replace 
 }
 
 ****************
 *** CLEANING ***
 ****************
-use "Inputdata/DistributionalData_raw.dta", clear
+use "Input data/DistributionalData_raw.dta", clear
 duplicates drop
 sort country_code year poverty_line
 rename country_code code
@@ -79,13 +79,13 @@ lab var year "Year"
 lab var weight "Weight"
 lab var welfare "Welfare (Daily, 2017 PPP USD)"
 compress
-save  "Inputdata/DistributionalData_clean.dta", replace
+save  "Input data/DistributionalData_clean.dta", replace
 
 *****************************
 *** ADD MISSING COUNTRIES ***
 *****************************
 // Find countries not included (uses a file from here: https://github.com/PovcalNet-Team/Class)
-use "Inputdata/CLASS.dta", clear
+use "Input data/CLASS.dta", clear
 keep code region_povcalnet region
 duplicates drop
 tempfile class
@@ -143,4 +143,4 @@ replace welfare = welf_regavg if missing(welfare)
 drop welf_regavg pctl 
 mdesc 
 compress
-save  "Inputdata/DistributionalData_finished.dta", replace
+save  "Input data/DistributionalData_finished.dta", replace

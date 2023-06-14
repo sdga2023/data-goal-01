@@ -9,7 +9,7 @@ cd "C:\Users\WB514665\OneDrive - WBG\DECDG\SDG Atlas 2022\Ch1\playground-sdg-1"
 **************************************
 *** COUNTRY DOTS IN 2019 FOR GLOBE ***
 **************************************
-use  "Inputdata/DistributionalData_finished.dta", clear
+use  "Input data/DistributionalData_finished.dta", clear
 keep if year==2019
 keep code weight welfare
 gen poor = 0
@@ -37,5 +37,5 @@ compress
 ren code iso3c
 ren pop population_in_millions
 ren poor poor_in_millions
-export delimited using "Outputdata/IntroductoryGlobe.csv", replace
+export delimited using "Output data/globe.csv", replace
 

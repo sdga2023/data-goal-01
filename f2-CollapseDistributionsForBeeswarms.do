@@ -8,7 +8,7 @@ cd "C:\Users\WB514665\OneDrive - WBG\DECDG\SDG Atlas 2022\Ch1\playground-sdg-1"
 *****************************
 *** COLLAPSE FOR PLOTTING ***
 *****************************
-use  "Inputdata/DistributionalData_finished.dta", clear
+use  "Input data/DistributionalData_finished.dta", clear
 drop code pop
 
 collapse (sum) weight, by(welfare year region)
@@ -25,8 +25,8 @@ collapse welfare [aw=weight], by(year region  group)
 gen regiontype = "7 regions"
 gen dotsize = `dot'
 gen dottype = "millions"
-cap append using "Inputdata/Beeswarm_data.dta"
-save "Inputdata/Beeswarm_data.dta", replace
+cap append using "Input data/Beeswarm_data.dta"
+save "Input data/Beeswarm_data.dta", replace
 restore
 // 4 regions 
 preserve
@@ -40,8 +40,8 @@ collapse welfare [aw=weight], by(year region  group)
 gen regiontype = "4 regions"
 gen dotsize = `dot'
 gen dottype = "millions"
-cap append using "Inputdata/Beeswarm_data.dta"
-save "Inputdata/Beeswarm_data.dta", replace
+cap append using "Input data/Beeswarm_data.dta"
+save "Input data/Beeswarm_data.dta", replace
 restore
 // World
 preserve
@@ -55,8 +55,8 @@ gen dotsize = `dot'
 gen dottype = "millions"
 gen regiontype = "World"
 gen region = "World"
-append using "Inputdata/Beeswarm_data.dta"
-save "Inputdata/Beeswarm_data.dta", replace
+append using "Input data/Beeswarm_data.dta"
+save "Input data/Beeswarm_data.dta", replace
 restore
 }
 // Shares
@@ -75,8 +75,8 @@ collapse welfare [aw=weight], by(year region  group)
 gen dotsize = `dot'
 gen dottype = "percent"
 gen regiontype = "7 regions"
-cap append using "Inputdata/Beeswarm_data.dta"
-save "Inputdata/Beeswarm_data.dta", replace
+cap append using "Input data/Beeswarm_data.dta"
+save "Input data/Beeswarm_data.dta", replace
 restore
 // 4 regions
 preserve
@@ -89,8 +89,8 @@ collapse welfare [aw=weight], by(year  region group)
 gen dotsize = `dot'
 gen dottype = "percent"
 gen regiontype = "4 regions"
-cap append using "Inputdata/Beeswarm_data.dta"
-save "Inputdata/Beeswarm_data.dta", replace
+cap append using "Input data/Beeswarm_data.dta"
+save "Input data/Beeswarm_data.dta", replace
 restore
 // World
 preserve
@@ -103,13 +103,13 @@ gen dotsize = `dot'
 gen dottype = "percent"
 gen regiontype = "World"
 gen region = "World"
-append using "Inputdata/Beeswarm_data.dta"
-save "Inputdata/Beeswarm_data.dta", replace
+append using "Input data/Beeswarm_data.dta"
+save "Input data/Beeswarm_data.dta", replace
 restore
 }
 */
 // Fix cases where the input data was not precise enough to create the necessary number of rows
-use "Inputdata/Beeswarm_data.dta", clear
+use "Input data/Beeswarm_data.dta", clear
 sort year regiontype region dottype dotsize group
 replace group = group/10^6 if dottype=="millions"
 forvalues rep=1/6 {
@@ -131,6 +131,6 @@ lab var dottype "Dot tyoe"
 lab var regiontype "Region type"
 lab var region "Region"
 compress
-export delimited using "Outputdata/Beeswarm_data.csv", replace
-save "Inputdata/Beeswarm_data.dta", replace
+export delimited using "Output data/beeswarm.csv", replace
+save "Input data/beeswarm.dta", replace
 

@@ -11,7 +11,7 @@ use code year gdppc gdp_impute using "Inputdata/GDP.dta", clear
 lab var gdppc "GDP per capita (2017 PPP)"
 
 // Merge with GHG data
-merge 1:1 code year using "Inputdata/GHG.dta", nogen keepusing(ghgenergypc ghgpc_impute)
+merge 1:1 code year using "Input data/GHG.dta", nogen keepusing(ghgenergypc ghgpc_impute)
 ren ghgenergypc ghgpc
 lab var ghgpc "GHG per capita from energy (metric tons)"
 
@@ -32,7 +32,7 @@ merge 1:1 code year using `poverty', nogen
 
 // Merge with GHG scenarios
 preserve
-use "Inputdata\Results_GHGneed.dta", clear
+use "Input data\Results_GHGneed.dta", clear
 ren *_dyn* **
 ren ghgenergypc_eba_cba ghgpc_need 
 ren ghgenergypc_e10_cba ghgpc_need_energy
@@ -52,7 +52,7 @@ merge 1:1 code year using `projections', nogen
 
 // Merge with GDP scenarios
 preserve
-use "Inputdata\Results_GDP.dta", clear
+use "Input data\Results_GDP.dta", clear
 keep code year gdppc_dyn
 ren gdppc_dyn gdppc_need
 lab var gdppc_need "GDP per capita to meet poverty goal (2017 PPP)"
@@ -72,7 +72,7 @@ drop *impute
 
 // Merge with data on growth needed to reach target
 preserve
-use "Inputdata/GrowthPoverty.dta", clear
+use "Input data/GrowthPoverty.dta", clear
 keep if passthroughscenario=="base"
 keep if povertyline==2.15
 keep if povertytarget==3
@@ -92,7 +92,7 @@ merge m:1 code using `growth', nogen
 
 // Merge with 2022 poverty rate
 preserve
-use "Inputdata/consumptiondistributions.dta", clear
+use "Input data/consumptiondistributions.dta", clear
 gen povertyrate = consumption<2.15
 drop if consumption_impute==1
 collapse (sum) povertyrate, by (code)
@@ -128,5 +128,5 @@ ren *_need *_need_baseline
 ren targetgdppc targetgdppc_baseline
 
 // Save final data
-export delimited using "Outputdata\ClimatePoverty_scatter.csv", replace
-save "Inputdata\ClimatePoverty_scatter.dta", replace
+export delimited using "Output data\povertyclimate.csv", replace
+save "Input data\povertyclimate.dta", replace

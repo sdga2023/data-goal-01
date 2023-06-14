@@ -22,7 +22,7 @@ bysort countrycode (year): keep if _n==_N
 sort valuemul
 gen n = _n
 
- export delimited using "Outputdata\Card1.csv", replace
+ export delimited using "Output data\card1.csv", replace
 
 gen dif = valuemul-valuemon
 sum dif,d
@@ -55,4 +55,4 @@ bysort countrycode: drop if _N==1
 tab income
 
 collapse value, by(incomelevel decade)
- export delimited using "Outputdata\Card2.csv", replace
+ export delimited using "Output data\card2.csv", replace

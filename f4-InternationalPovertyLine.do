@@ -7,7 +7,7 @@
 
 cd "C:\Users\WB514665\OneDrive - WBG\DECDG\SDG Atlas 2022\Ch1\playground-sdg-1"
 
-use "Inputdata/NationalPovertyLines.dta", clear
+use "Input data/NationalPovertyLines.dta", clear
 
 rename incgroup incomegroup
 rename impline povertyline
@@ -17,4 +17,4 @@ gen loggdp = log10(gdp)
 gen logpovertyline = log10(povertyline)
 compress
 
-export delimited using "Outputdata\NationalPovertyLines.csv", replace
+export delimited using "Output data\povlines.csv", replace
